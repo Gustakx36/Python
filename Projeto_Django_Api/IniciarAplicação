@@ -1,0 +1,63 @@
+Baixar Python ultima versão
+
+pip install --upgrade pip
+
+python -m pip install mysqlclient
+python -m pip install mysql-connector-python
+python -m pip install pymysql
+
+pip install django
+pip install djangorestframework
+pip install markdown
+pip install django-filter
+
+linux pip3 / python3
+
+-------------------------------------------------------
+
+para iniciar a API esteja na pasta onde fica o arquivo Manage.py de o comando 'python Manage.py runserver'
+
+fontes : https://www.django-rest-framework.org
+
+Passar o host para a aplicação no arquivo ConnectionDB.py
+{
+  host='localhost',
+  user='root', #'root'
+  passwd='', #''
+  database='django_api_banco'
+}
+
+-------------------------------------------------------
+
+Tabelas Utilizadas
+
+CREATE TABLE core_cliente
+  (
+    id INT NULL AUTO_INCREMENT ,
+    nome VARCHAR(255) NOT NULL ,
+    idade TINYINT NOT NULL ,
+    id_login_id INT NOT NULL ,
+    PRIMARY KEY (id)
+  )
+ENGINE = InnoDB;
+
+CREATE TABLE core_api_key
+  (
+    id INT NULL AUTO_INCREMENT ,
+    api_key VARCHAR(40) NULL ,
+    PRIMARY KEY (id), UNIQUE (api_key)
+  )
+ENGINE = InnoDB;
+
+CREATE TABLE core_logins
+  (
+    id INT NOT NULL AUTO_INCREMENT ,
+    login VARCHAR(255) NOT NULL ,
+    senha VARCHAR(255) NOT NULL ,
+    PRIMARY KEY (id)
+  )
+ENGINE = InnoDB;
+
+ALTER TABLE core_cliente ADD CONSTRAINT ClienteDeLogin
+  FOREIGN KEY (id_login_id) REFERENCES core_logins(id)
+ON DELETE CASCADE ON UPDATE CASCADE;
